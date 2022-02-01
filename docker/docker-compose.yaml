@@ -1,0 +1,24 @@
+version: '3.0'
+services:
+  todofrontend:
+    build: ./todo-app/front-end
+    restart: always
+    ports:
+      -3000:3000
+    environment:
+      - REACT_APP_API_HOST=todoback
+    depends_on:
+      - todoback
+  todoback:
+    build: ./todo-app/back-end
+    restart: always
+    ports:
+      -3001:3001
+  todotests:
+    build: ./todo-app/tests
+    restart: always
+    environment:
+      - FRONT_HOST=todofrontend
+    depends_on:
+      - todofrontend
+      - todoback
