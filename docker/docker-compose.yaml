@@ -8,16 +8,18 @@ services:
       - REACT_APP_API_HOST=todoback
     depends_on:
       - todoback
-  
+    restart:  always
+
   todoback:
     image: todobackend
     ports:
       - "3001:3001"
+    restart:  always
   
   todotests:
     image: todotests
     environment:
       - FRONT_HOST=todofront
     depends_on:
-      - todofront
       - todoback
+      - todofront
